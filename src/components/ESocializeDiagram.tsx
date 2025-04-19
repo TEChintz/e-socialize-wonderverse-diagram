@@ -1,5 +1,5 @@
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
@@ -12,12 +12,19 @@ import {
 
 const ESocializeDiagram = () => {
   const diagramRef = useRef<HTMLDivElement>(null);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
     const handleResize = () => {
-      // Responsive adjustments if needed
+      if (diagramRef.current) {
+        setDimensions({
+          width: diagramRef.current.offsetWidth,
+          height: diagramRef.current.offsetHeight
+        });
+      }
     };
 
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -51,7 +58,7 @@ const ESocializeDiagram = () => {
       </div>
 
       {/* Section 1: Simulated Wonderland Core */}
-      <div className="absolute left-1/2 top-1/4 transform -translate-x-1/2 -translate-y-1/2 z-20">
+      <div className="absolute left-1/2 top-[15%] transform -translate-x-1/2 z-20">
         <motion.div 
           className="relative w-40 h-40 md:w-56 md:h-56 rounded-full bg-gradient-to-r from-[#9b87f5]/30 to-[#7E69AB]/30 flex items-center justify-center"
           initial={{ scale: 0.9, opacity: 0 }}
@@ -71,11 +78,11 @@ const ESocializeDiagram = () => {
           
           {/* Orbit elements */}
           {[
-            { icon: Scale, label: "Equality", angle: 0, distance: 110 },
-            { icon: Feather, label: "Respect", angle: 72, distance: 110 },
-            { icon: Link, label: "Togetherness", angle: 144, distance: 110 },
-            { icon: CircleDot, label: "Social Acceptance", angle: 216, distance: 110 },
-            { icon: BarChart3, label: "Non-Judgment", angle: 288, distance: 110 },
+            { icon: Scale, label: "Equality", angle: 0, distance: 120 },
+            { icon: Feather, label: "Respect", angle: 72, distance: 120 },
+            { icon: Link, label: "Togetherness", angle: 144, distance: 120 },
+            { icon: CircleDot, label: "Social Acceptance", angle: 216, distance: 120 },
+            { icon: BarChart3, label: "Non-Judgment", angle: 288, distance: 120 },
           ].map((item, i) => {
             const Icon = item.icon;
             const radian = (item.angle * Math.PI) / 180;
@@ -107,15 +114,15 @@ const ESocializeDiagram = () => {
                 <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#9b87f5]/20 backdrop-blur-sm flex items-center justify-center border border-[#9b87f5]/40">
                   <Icon className="w-4 h-4 md:w-5 md:h-5 text-[#D6BCFA]" />
                 </div>
-                <span className="text-[9px] md:text-xs text-white/70 mt-1">{item.label}</span>
+                <span className="text-[9px] md:text-xs text-white/70 mt-1 bg-[#1A1F2C]/60 px-1.5 py-0.5 rounded">{item.label}</span>
               </motion.div>
             );
           })}
         </motion.div>
       </div>
 
-      {/* Section 2: Positivity Chain Reaction (Left Side) */}
-      <div className="absolute left-1/6 top-1/2 transform -translate-x-1/4 -translate-y-1/3 z-20">
+      {/* Section 2: Positivity Chain Reaction */}
+      <div className="absolute left-[15%] top-[40%] z-20">
         <div className="relative w-48 h-48">
           {/* Central node */}
           <motion.div
@@ -193,15 +200,15 @@ const ESocializeDiagram = () => {
           </svg>
           
           <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-center">
-            <span className="text-[10px] md:text-xs text-white/70 leading-tight">
+            <span className="text-[10px] md:text-xs text-white/70 leading-tight bg-[#1A1F2C]/60 px-2 py-1 rounded">
               One act of positivity sparks nine more—<br/>goodness amplifies.
             </span>
           </div>
         </div>
       </div>
 
-      {/* Section 3: Herd Behavior Loop (Bottom Left Corner) */}
-      <div className="absolute left-1/6 bottom-1/6 transform -translate-x-1/3 z-20">
+      {/* Section 3: Herd Behavior Loop */}
+      <div className="absolute left-[20%] bottom-[15%] z-20">
         <div className="relative w-36 h-36">
           <svg className="w-full h-full" viewBox="0 0 100 100">
             <defs>
@@ -242,7 +249,7 @@ const ESocializeDiagram = () => {
           </svg>
           
           <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-center w-full">
-            <span className="text-[10px] md:text-xs text-white/70 leading-tight">
+            <span className="text-[10px] md:text-xs text-white/70 leading-tight bg-[#1A1F2C]/60 px-2 py-1 rounded">
               Human behavior follows emotion—<br/>kindness inspires kindness.
             </span>
           </div>
@@ -355,8 +362,8 @@ const ESocializeDiagram = () => {
         </motion.div>
       </div>
 
-      {/* Section 5: Creative Script Amplifier (Right Center) */}
-      <div className="absolute right-1/4 top-1/3 transform -translate-y-1/3 z-20">
+      {/* Section 5: Creative Script Amplifier */}
+      <div className="absolute right-[25%] top-[40%] z-20">
         <div className="relative w-40 h-40">
           {/* DNA helix / wave */}
           <svg className="w-full h-full" viewBox="0 0 100 100">
@@ -413,15 +420,15 @@ const ESocializeDiagram = () => {
           })}
           
           <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-center">
-            <span className="text-[10px] md:text-xs text-white/70 leading-tight">
+            <span className="text-[10px] md:text-xs text-white/70 leading-tight bg-[#1A1F2C]/60 px-2 py-1 rounded">
               Creative scripts amplify human emotions<br/>and guide the journey.
             </span>
           </div>
         </div>
       </div>
 
-      {/* Section 6: Controlled Simulation Layer (Bottom Right) */}
-      <div className="absolute right-1/6 bottom-1/6 transform translate-x-1/6 z-20">
+      {/* Section 6: Controlled Simulation Layer */}
+      <div className="absolute right-[15%] bottom-[15%] z-20">
         <motion.div
           className="relative w-48 h-32 md:w-56 md:h-36 rounded-lg bg-[#1A1F2C]/70 backdrop-blur-sm border border-[#9b87f5]/30 p-3"
           initial={{ y: 20, opacity: 0 }}
@@ -497,8 +504,8 @@ const ESocializeDiagram = () => {
         </motion.div>
       </div>
 
-      {/* Section 7: Emotional Outcome Stream (Far Right) */}
-      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 z-20">
+      {/* Section 7: Emotional Outcome Stream */}
+      <div className="absolute right-[5%] top-[50%] transform -translate-y-1/2 z-20">
         <div className="relative w-32 md:w-40 h-48">
           {/* Flowing ribbon */}
           <svg className="w-full h-full" viewBox="0 0 100 200">
@@ -565,11 +572,130 @@ const ESocializeDiagram = () => {
           })}
           
           <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 text-center w-full">
-            <span className="text-[9px] md:text-xs text-white/80 leading-tight">
+            <span className="text-[9px] md:text-xs text-white/80 leading-tight bg-[#1A1F2C]/60 px-2 py-1 rounded">
               Output: Positivity, Fulfillment,<br/>Connection, Joy
             </span>
           </div>
         </div>
+      </div>
+
+      {/* Connecting lines between sections to show flow */}
+      <svg className="absolute inset-0 w-full h-full z-15 pointer-events-none">
+        {/* Line from Simulated Core to Positivity Chain */}
+        <motion.path
+          d="M 50% 20%, 20% 40%"
+          stroke="#9b87f5"
+          strokeWidth="1"
+          strokeDasharray="5,5"
+          fill="none"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 0.6 }}
+          transition={{ duration: 2, delay: 0.5 }}
+        />
+        
+        {/* Line from Positivity Chain to Herd Behavior */}
+        <motion.path
+          d="M 20% 45%, 20% 75%"
+          stroke="#9b87f5"
+          strokeWidth="1"
+          strokeDasharray="5,5"
+          fill="none"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 0.6 }}
+          transition={{ duration: 2, delay: 1 }}
+        />
+        
+        {/* Line from Herd Behavior to Mediator */}
+        <motion.path
+          d="M 25% 75%, 50% 50%"
+          stroke="#9b87f5"
+          strokeWidth="1"
+          strokeDasharray="5,5"
+          fill="none"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 0.6 }}
+          transition={{ duration: 2, delay: 1.5 }}
+        />
+        
+        {/* Line from Mediator to Script Amplifier */}
+        <motion.path
+          d="M 53% 50%, 75% 40%"
+          stroke="#9b87f5"
+          strokeWidth="1"
+          strokeDasharray="5,5"
+          fill="none"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 0.6 }}
+          transition={{ duration: 2, delay: 2 }}
+        />
+        
+        {/* Line from Script Amplifier to Control Panel */}
+        <motion.path
+          d="M 75% 45%, 80% 75%"
+          stroke="#9b87f5"
+          strokeWidth="1"
+          strokeDasharray="5,5"
+          fill="none"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 0.6 }}
+          transition={{ duration: 2, delay: 2.5 }}
+        />
+        
+        {/* Line from Control Panel to Outcome Stream */}
+        <motion.path
+          d="M 85% 75%, 90% 50%"
+          stroke="#9b87f5"
+          strokeWidth="1"
+          strokeDasharray="5,5"
+          fill="none"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 0.6 }}
+          transition={{ duration: 2, delay: 3 }}
+        />
+        
+        {/* Line from Mediator back to Core */}
+        <motion.path
+          d="M 53% 48%, 55% 20%"
+          stroke="#D946EF"
+          strokeWidth="1"
+          strokeDasharray="3,6"
+          fill="none"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 0.4 }}
+          transition={{ duration: 2, delay: 3.5 }}
+        />
+      </svg>
+
+      {/* Flow direction indicators */}
+      <div className="absolute inset-0 w-full h-full z-15 pointer-events-none">
+        {[
+          { left: "35%", top: "25%", rotate: "45deg" },
+          { left: "20%", top: "60%", rotate: "90deg" },
+          { left: "35%", top: "65%", rotate: "135deg" },
+          { left: "65%", top: "45%", rotate: "-45deg" },
+          { left: "78%", top: "60%", rotate: "90deg" },
+          { left: "88%", top: "65%", rotate: "-135deg" },
+        ].map((item, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 opacity-60"
+            style={{
+              left: item.left,
+              top: item.top,
+              transform: `rotate(${item.rotate})`,
+            }}
+            animate={{
+              opacity: [0.3, 0.8, 0.3],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              delay: i * 0.3,
+            }}
+          >
+            <div className="w-0 h-0 border-t-[4px] border-t-transparent border-l-[8px] border-l-[#D6BCFA] border-b-[4px] border-b-transparent"></div>
+          </motion.div>
+        ))}
       </div>
     </div>
   );
